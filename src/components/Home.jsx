@@ -10,7 +10,7 @@ function Home() {
     <>
         <Header />
         <main className='container'>
-            <Row>
+            <Row className='my-2 g-3'>
                 <CardPizza
                     img={pizza1}
                     name='Napolitana'

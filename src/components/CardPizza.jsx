@@ -6,8 +6,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 function CardPizza({img, name, price, ingredients}) {
 
     return (
-        <Col className='col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 my-4'>
-            <Card className='w-100 h-100 mx-1'>
+        <Col className='col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 my-2'>
+            <Card className='w-100 h-100'>
                 <Card.Img className='card-img-top' variant='top' src={img}/>
                 <Card.Body className='d-flex align-items-center'>
                     <Card.Title className='mb-3'>Pizza {name}</Card.Title>
