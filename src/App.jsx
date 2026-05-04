@@ -1,24 +1,26 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import CustomNavbar from './components/CustomNavbar';
-import Home from './components/Home';
+import Cart from './components/Cart';
+// import Home from './components/Home';
 import Footer from './components/Footer';
-import RegisterForm from './components/RegisterForm';
-import LoginForm from './components/LoginForm';
+// import RegisterForm from './components/RegisterForm';
+// import LoginForm from './components/LoginForm';
 
 
 function App() {
 
   return (
-    <>
+    <div className='d-flex flex-column min-vh-100'>
       <CustomNavbar />
+      <Cart />
       {/* <Home /> */}
-      <RegisterForm />
+      {/* <RegisterForm /> */}
       {/* Separador temporal para la evaluación del Hito 2 */}
-      <hr className='m-0'/>
-      <LoginForm />
+      {/* <hr className='m-0'/> */}
+      {/* <LoginForm /> */}
       <Footer />
-    </>
+    </div>
   )
 }
 
