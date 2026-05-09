@@ -8,9 +8,10 @@ function CardPizza(props) {
     return (
         <Col className='col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 my-2'>
             <Card className='w-100 h-100'>
-                <Card.Img className='card-img-top' variant='top' src={props.img}/>
-                <Card.Body className='d-flex align-items-center'>
-                    <Card.Title className='mb-3'>Pizza {props.name}</Card.Title>
+                <Card.Img className='card-img-top' variant='top' src={props.img} alt='Imagen de Pizza' />
+                <Card.Body className='d-flex flex-column align-items-start gap-3 m-2'>
+                    <Card.Title className='fw-bold'>Pizza {props.name}</Card.Title>
+                    {props.desc ? <p className='text-center'>{props.desc}</p> : null}
                 </Card.Body>
                 <ListGroup className="list-group list-group-flush text-center">
                     <li className="list-group-item">
