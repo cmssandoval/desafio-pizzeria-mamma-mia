@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function LoginForm() {
+export default function LoginForm({ tokenSetter }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,11 +14,11 @@ export default function LoginForm() {
         e.preventDefault();
         setSubmitSuccess(false);
 
-        if ( !email.trim() || !password.trim()) {
+        if (!email.trim() || !password.trim()) {
             setEmptyError(true);
             setPasswordLengthError(false);
             return;
-        } else if ( password.length < 6 ) {
+        } else if (password.length < 6) {
             setPasswordLengthError(true);
             setEmptyError(false);
             return;
@@ -30,10 +31,11 @@ export default function LoginForm() {
         setPasswordLengthError(false);
 
         setSubmitSuccess(true);
-    }
+        tokenSetter(true);
+    };
 
     return (
-        <form className='container text-center py-2' onSubmit={(e) => {handleSubmit(e)}}>
+        <form className='container text-center py-2' onSubmit={(e) => { handleSubmit(e) }}>
             <div className='row flex-column align-items-center justify-content-center my-2'>
                 <h2 className='fw-bold m-0 pb-3'>Inicio de Sesión</h2>
                 <div className='form-group col-9 col-sm-8 col-md-6 py-2 px-5'>
@@ -59,15 +61,16 @@ export default function LoginForm() {
                     />
                 </div>
                 <div className='form-group col-9 col-sm-8 col-md-6 py-3 px-5'>
-                {emptyError ? <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p> : null}
-                {passwordLengthError ? <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p> : null}
-                {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Ha inciado sesión exitosamente</p> : null}
+                    {emptyError ? <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p> : null}
+                    {passwordLengthError ? <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p> : null}
+                    {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Ha inciado sesión exitosamente</p> : null}
                     <button
                         className='btn btn-primary'
                         type='submit'
                     >Iniciar sesión</button>
+                    <p className='mt-3'>¿Aún no tienes una cuenta? <Link to='/desafio-pizzeria-mamma-mia/register'>Regístrate</Link></p>
                 </div>
             </div>
         </form>
-    )
+    );
 }

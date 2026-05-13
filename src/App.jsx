@@ -1,26 +1,57 @@
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
 import CustomNavbar from './components/CustomNavbar';
-import Cart from './components/Cart';
-import Home from './components/Home';
-import Pizza from './components/Pizza';
 import Footer from './components/Footer';
-// import RegisterForm from './components/RegisterForm';
-// import LoginForm from './components/LoginForm';
+
+import Home from './pages/Home';
+import RegisterForm from './pages/RegisterForm';
+import LoginForm from './pages/LoginForm';
+import Cart from './pages/Cart';
+import Pizza from './pages/Pizza';
+import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 
 
 function App() {
+  const [token, setToken] = useState(false);
 
   return (
     <div className='d-flex flex-column min-vh-100'>
-      <CustomNavbar />
-      {/* <Cart /> */}
-      {/* <Home /> */}
-      {/* <RegisterForm /> */}
-      {/* Separador temporal para la evaluación del Hito 2 */}
-      {/* <hr className='m-0'/> */}
-      {/* <LoginForm /> */}
-      <Pizza />
+      <CustomNavbar tokenState={token} />
+      <Routes>
+        <Route
+          path='desafio-pizzeria-mamma-mia/'
+          element={<Home />}
+        />
+        <Route
+          path='desafio-pizzeria-mamma-mia/register'
+          element={<RegisterForm tokenSetter={setToken} />}
+        />
+        <Route
+          path='desafio-pizzeria-mamma-mia/login'
+          element={<LoginForm tokenSetter={setToken} />}
+        />
+        <Route
+          path='/desafio-pizzeria-mamma-mia/cart'
+          element={<Cart />}
+        />
+        <Route
+          path='/desafio-pizzeria-mamma-mia/pizza/p001'
+          element={<Pizza />}
+        />
+        <Route
+          path='/desafio-pizzeria-mamma-mia/profile'
+          element={<Profile tokenSetter={setToken} />}
+        />
+        <Route
+          path='*'
+          element={<NotFound />}
+        />
+      </Routes>
       <Footer />
     </div>
   )

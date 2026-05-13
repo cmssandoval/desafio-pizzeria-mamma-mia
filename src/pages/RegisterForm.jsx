@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function RegisterForm() {
+export default function RegisterForm({ tokenSetter }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordConfirmation,setPasswordConfirmation] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -15,17 +16,17 @@ export default function RegisterForm() {
         e.preventDefault();
         setSubmitSuccess(false);
 
-        if ( !email.trim() || !password.trim() || !passwordConfirmation.trim()) {
+        if (!email.trim() || !password.trim() || !passwordConfirmation.trim()) {
             setEmptyError(true);
             setPasswordLengthError(false);
             setPasswordConfirmationError(false);
             return;
-        } else if ( password.length < 6 ) {
+        } else if (password.length < 6) {
             setEmptyError(false);
             setPasswordLengthError(true);
             setPasswordConfirmationError(false);
             return;
-        } else if ( password !== passwordConfirmation) {
+        } else if (password !== passwordConfirmation) {
             setEmptyError(false);
             setPasswordLengthError(false);
             setPasswordConfirmationError(true);
@@ -41,10 +42,11 @@ export default function RegisterForm() {
         setPasswordConfirmationError(false);
 
         setSubmitSuccess(true);
+        tokenSetter(true);
     }
 
     return (
-        <form className='container text-center py-2' onSubmit={(e) => {handleSubmit(e)}}>
+        <form className='container text-center py-2' onSubmit={(e) => { handleSubmit(e) }}>
             <div className='row flex-column align-items-center justify-content-center my-2'>
                 <h2 className='fw-bold m-0 pb-3'>Registro</h2>
                 <div className='form-group col-9 col-sm-8 col-md-6 py-2 px-5'>
@@ -81,17 +83,18 @@ export default function RegisterForm() {
                     />
                 </div>
                 <div className='form-group col-9 col-sm-8 col-md-6 py-3 px-5'>
-                {emptyError ? <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p> : null}
-                {passwordLengthError ? <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p> : null}
-                {passwordConfirmationError ? <p className='bg-danger text-white rounded-2 p-2'>Las contraseñas deben ser iguales</p> : null}
-                {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Se ha registrado exitosamente</p> : null}
+                    {emptyError ? <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p> : null}
+                    {passwordLengthError ? <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p> : null}
+                    {passwordConfirmationError ? <p className='bg-danger text-white rounded-2 p-2'>Las contraseñas deben ser iguales</p> : null}
+                    {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Se ha registrado exitosamente</p> : null}
                     <button
                         className='btn btn-primary'
                         type='submit'
                     >Registrarse</button>
+                    <p className='mt-3'>¿Ya tienes una cuenta? <Link to='/desafio-pizzeria-mamma-mia/login'>Inicia Sesión</Link></p>
                 </div>
             </div>
 
         </form>
-    )
+    );
 }

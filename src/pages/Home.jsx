@@ -1,8 +1,7 @@
 import Row from 'react-bootstrap/Row';
-import Header from "./Header";
-import CardPizza from "./CardPizza";
+import Header from "../components/Header";
+import CardPizza from "../components/CardPizza";
 import { useEffect, useState } from 'react';
-// import { pizzas } from "../pizzas";
 
 function Home() {
 
@@ -23,7 +22,7 @@ function Home() {
         <>
             <Header />
             <main className='container'>
-                <Row className='my-2 px-3 g-3'>
+                <Row className='my-4 px-3'>
                     {pizzas.map((element, index) => (
                         <CardPizza
                             img={element.img}
