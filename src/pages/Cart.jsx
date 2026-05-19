@@ -1,38 +1,18 @@
-import React, { useState } from 'react';
-import { pizzaCart } from '../pizzas';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartProvider';
 
 const Cart = () => {
-    const [cart, setCart] = useState(pizzaCart);
-
-    const modificarCantidadPizza = (operacion, id) => {
-        let pizzaModificada = cart.find(p => p.id === id);
-
-        if (operacion === 'sumar') {
-            pizzaModificada.count = pizzaModificada.count + 1;
-        }
-        if (operacion === 'restar') {
-            pizzaModificada.count = pizzaModificada.count - 1;
-        }
-
-        if (pizzaModificada.count <= 0) {
-            let renderPizzas = cart.filter(p => p.id !== id);
-            setCart(renderPizzas);
-            return;
-        }
-
-        let renderPizzas = cart.map(p => p.id === id ? pizzaModificada : p);
-        setCart(renderPizzas);
-    };
+    const { items, updateCantidad, clearCart, total } = useCart();
 
     return (
         <>
-            <div className='p-4 px-5 mx-2'>
-                <h5>Detalles del pedido</h5>
-                {cart.length > 0 ? (
+            <div className='p-4 px-5 mt-3 mx-2'>
+                <h4>Detalles del pedido</h4>
+                {items.length > 0 ? (
                     <>
-                        <div className='d-flex flex-column gap-3 py-2'>
-                            {cart.map((pizza) => (
+                        <div className='d-flex flex-column gap-3 py-3'>
+                            {items.map((pizza) => (
                                 <div key={pizza.id} className='d-flex justify-content-between'>
                                     <div className='d-flex align-items-center gap-1'>
                                         <img className='px-0' src={pizza.img} alt='Imagen Pizza' />
@@ -43,12 +23,12 @@ const Cart = () => {
                                         <div className='d-flex gap-2'>
                                             <button
                                                 className='btn btn-outline-danger'
-                                                onClick={() => modificarCantidadPizza('restar', pizza.id)}
+                                                onClick={() => updateCantidad(pizza.id, -1)}
                                             >-</button>
-                                            <p className='fw-bold p-1 m-0'>{pizza.count}</p>
+                                            <p className='fw-bold p-1 m-0'>{pizza.cantidad}</p>
                                             <button
                                                 className='btn btn-outline-primary'
-                                                onClick={() => modificarCantidadPizza('sumar', pizza.id)}
+                                                onClick={() => updateCantidad(pizza.id, +1)}
                                             >+</button>
                                         </div>
                                     </div>
@@ -56,12 +36,19 @@ const Cart = () => {
                             ))}
                         </div>
                         <div>
-                            <h2 className='my-2'>
-                                Total: $
-                                {cart.reduce((total, pizza) =>
-                                    total + pizza.price * pizza.count, 0).toLocaleString('es-CL')}
-                            </h2>
-                            <button className='btn btn-dark px3 py-1 my-2'>Pagar</button>
+                            <div className='d-flex justify-content-between'>
+                                <h2 className='my-2'>
+                                    Total: $
+                                    {total.toLocaleString('es-CL')}
+                                </h2>
+                                <div>
+                                    <button
+                                        className='btn btn-outline-danger px-2 m-2 me-0'
+                                        onClick={clearCart}
+                                    >🗑️</button>
+                                </div>
+                            </div>
+                            <button className='btn btn-dark px-3 py-1 my-2'>Pagar</button>
                         </div>
                     </>
                 ) : (

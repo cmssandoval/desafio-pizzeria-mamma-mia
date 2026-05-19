@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom';
+
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 
+import { useCart } from '../context/CartProvider';
+
 function CardPizza(props) {
+    const { addItem } = useCart();
 
     return (
         <Col className='col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 d-flex justify-content-center my-2'>
@@ -24,9 +29,21 @@ function CardPizza(props) {
                     </li>
                     <li className="list-group-item">
                         <h4>Precio: ${props.price.toLocaleString('es-CL')}</h4>
-                        <div className='d-flex justify-content-between mx-3 py-4'>
-                            <Button className='btn-light btn-outline-dark'>Ver Más👀</Button>
-                            <Button className='btn-dark'>Añadir🛒</Button>
+                        <div className={`d-flex mx-3 py-4 ${props.showToken ? 'justify-content-between' : 'justify-content-center'}`}>
+                            {props.showToken && (
+                                <Button
+                                    className='btn-light btn-outline-dark'
+                                >
+                                    <Link
+                                        to={`/desafio-pizzeria-mamma-mia/pizza/${props.id}`}
+                                        className='text-decoration-none text-dark'
+                                    >Ver Más 👀</Link>
+                                </Button>
+                            )}
+                            <Button
+                                className='btn-dark'
+                                onClick={() => addItem(props)}
+                            >Añadir🛒</Button>
                         </div>
                     </li>
                 </ListGroup>

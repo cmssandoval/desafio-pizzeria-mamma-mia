@@ -2,20 +2,21 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
-
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 import CustomButton from './CustomButton';
 
+import { useCart } from '../context/CartProvider';
+
 function CustomNavbar({ tokenState }) {
-    const [total, setTotal] = useState(25000)
+    const { cuenta, total } = useCart();
 
     return (
         <Navbar
             expand="sm"
-            className="bg-custom text-white"
+            className="bg-custom text-white fixed-top"
             variant='dark'
             data-bs-theme="dark"
         >
@@ -67,14 +68,16 @@ function CustomNavbar({ tokenState }) {
                         className='btn-dark btn-outline-info'
                     >
                         <Link
-                            className='text-decoration-none text-info'
+                            className='text-decoration-none text-info d-flex align-items-center gap-2'
                             to='/desafio-pizzeria-mamma-mia/cart'
-                        >🛒Total: ${total.toLocaleString('es-CL')}</Link>
+                        >🛒Total: ${total.toLocaleString('es-CL')}
+                        {cuenta > 0 && <span className='badge bg-info rounded-pill'>{cuenta}</span>}
+                        </Link>
                     </Button>
                 </Container>
             </Container>
         </Navbar>
     );
-}
+};
 
 export default CustomNavbar;

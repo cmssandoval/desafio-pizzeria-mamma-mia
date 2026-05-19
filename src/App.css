@@ -13,6 +13,18 @@
 
 .card-img-top {
     width: 100%;
-    height: 250px;
+    height: 200px;
     object-fit: cover;
+}
+
+.fetch-status {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.fetch-status p {
+    font-weight: bold;
 }

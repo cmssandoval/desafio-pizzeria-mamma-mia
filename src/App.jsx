@@ -15,43 +15,49 @@ import Pizza from './pages/Pizza';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
+import DataProvider from './context/DataProvider';
+import CartProvider from './context/CartProvider';
 
 function App() {
   const [token, setToken] = useState(false);
 
   return (
-    <div className='d-flex flex-column min-vh-100'>
-      <CustomNavbar tokenState={token} />
-      <Routes>
-        <Route
-          path='desafio-pizzeria-mamma-mia/'
-          element={<Home />}
-        />
-        <Route
-          path='desafio-pizzeria-mamma-mia/register'
-          element={<RegisterForm tokenSetter={setToken} />}
-        />
-        <Route
-          path='desafio-pizzeria-mamma-mia/login'
-          element={<LoginForm tokenSetter={setToken} />}
-        />
-        <Route
-          path='/desafio-pizzeria-mamma-mia/cart'
-          element={<Cart />}
-        />
-        <Route
-          path='/desafio-pizzeria-mamma-mia/pizza/p001'
-          element={<Pizza />}
-        />
-        <Route
-          path='/desafio-pizzeria-mamma-mia/profile'
-          element={<Profile tokenSetter={setToken} />}
-        />
-        <Route
-          path='*'
-          element={<NotFound />}
-        />
-      </Routes>
+    <div className='d-flex flex-column min-vh-100 pt-5'>
+      <DataProvider>
+        <CartProvider>
+          <CustomNavbar tokenState={token} />
+          <Routes>
+            <Route
+              path='desafio-pizzeria-mamma-mia/'
+              element={<Home />}
+            />
+            <Route
+              path='desafio-pizzeria-mamma-mia/register'
+              element={<RegisterForm tokenSetter={setToken} />}
+            />
+            <Route
+              path='desafio-pizzeria-mamma-mia/login'
+              element={<LoginForm tokenSetter={setToken} />}
+            />
+            <Route
+              path='/desafio-pizzeria-mamma-mia/cart'
+              element={<Cart />}
+            />
+            <Route
+              path='/desafio-pizzeria-mamma-mia/pizza/:id'
+              element={<Pizza />}
+            />
+            <Route
+              path='/desafio-pizzeria-mamma-mia/profile'
+              element={<Profile tokenSetter={setToken} />}
+            />
+            <Route
+              path='*'
+              element={<NotFound />}
+            />
+          </Routes>
+        </CartProvider>
+      </DataProvider>
       <Footer />
     </div>
   )

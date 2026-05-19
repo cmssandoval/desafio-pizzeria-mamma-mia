@@ -46,7 +46,7 @@ export default function RegisterForm({ tokenSetter }) {
     }
 
     return (
-        <form className='container text-center py-2' onSubmit={(e) => { handleSubmit(e) }}>
+        <form className='container text-center py-4' onSubmit={(e) => { handleSubmit(e) }}>
             <div className='row flex-column align-items-center justify-content-center my-2'>
                 <h2 className='fw-bold m-0 pb-3'>Registro</h2>
                 <div className='form-group col-9 col-sm-8 col-md-6 py-2 px-5'>

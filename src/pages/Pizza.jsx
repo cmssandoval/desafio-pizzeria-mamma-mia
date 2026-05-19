@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from 'react';
 import CardPizza from '../components/CardPizza';
 import Row from 'react-bootstrap/Row';
 
+import { useParams } from 'react-router-dom';
+import { useData } from '../context/DataProvider';
+
 const Pizza = () => {
-    const [pizzaData, setPizzaData] = useState([]);
+    const { getPizzaById, loading } = useData();
+    const { id } = useParams();
+    const pizza = getPizzaById(id);
 
-    useEffect(() => {
-        getDataPizza();
-    }, [])
-
-    const getDataPizza = async () => {
-        const apiURL = 'http://localhost:5000/api/pizzas/p001';
-        const response = await fetch(apiURL);
-        const data = await response.json();
-        setPizzaData(data);
-    }
+    if (loading) return <div className='fetch-status'><p>Cargando...</p></div>
+    if (!pizza) return <div className='fetch-status'><p>No hemos encontrado esta pizza</p></div>
 
     return (
 
         <div className='container'>
             <Row className='justify-content-center my-3'>
                 <CardPizza
-                    img={pizzaData.img}
-                    name={pizzaData.name}
-                    price={pizzaData.price}
-                    ingredients={pizzaData.ingredients}
-                    desc={pizzaData.desc}
-                    key={pizzaData.id}
+                    img={pizza.img}
+                    name={pizza.name}
+                    price={pizza.price}
+                    ingredients={pizza.ingredients}
+                    desc={pizza.desc}
+                    key={pizza.id}
+                    showToken={false}
                 />
             </Row>
         </div>

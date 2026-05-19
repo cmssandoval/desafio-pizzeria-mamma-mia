@@ -1,41 +1,34 @@
 import Row from 'react-bootstrap/Row';
 import Header from "../components/Header";
 import CardPizza from "../components/CardPizza";
-import { useEffect, useState } from 'react';
+import { useData } from '../context/DataProvider';
 
 function Home() {
+    const { pizzas, loading, error } = useData();
 
-    const [pizzas, setPizzas] = useState([]);
+    if (loading) return <div className='fetch-status'><p>Cargando Pizzas...</p></div>
+    if (error) return <div className='fetch-status'><p>Error: {error}</p></div>
 
-    useEffect(() => {
-        getDataPizzas();
-    }, []);
-
-    const getDataPizzas = async () => {
-        const apiURL = 'http://localhost:5000/api/pizzas';
-        const response = await fetch(apiURL);
-        const data = await response.json();
-        setPizzas(data);
-    };
-
-    return (
-        <>
-            <Header />
-            <main className='container'>
-                <Row className='my-4 px-3'>
-                    {pizzas.map((element, index) => (
-                        <CardPizza
-                            img={element.img}
-                            name={element.name}
-                            price={element.price}
-                            ingredients={element.ingredients}
-                            key={element.id}
-                        />
-                    ))}
-                </Row>
-            </main>
-        </>
-    );
+        return (
+            <>
+                <Header />
+                <main className='container'>
+                    <Row className='my-4 px-3'>
+                        {pizzas.map((element, index) => (
+                            <CardPizza
+                                id={element.id}
+                                key={element.id}
+                                img={element.img}
+                                name={element.name}
+                                price={element.price}
+                                ingredients={element.ingredients}
+                                showToken={true}
+                            />
+                        ))}
+                    </Row>
+                </main>
+            </>
+        );
 }
 
 export default Home;
