@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-
-import CustomButton from './CustomButton';
 
 import { useCart } from '../context/CartProvider';
 
@@ -36,44 +34,66 @@ function CustomNavbar({ tokenState }) {
 
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="py-auto ms-0 align-items-center">
-                            <CustomButton text='🍕Home' route='/desafio-pizzeria-mamma-mia'/>
+                            <NavLink
+                                className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                to='desafio-pizzeria-mamma-mia/'
+                                end
+                            >
+                                <Button className='btn-dark btn-outline-light mx-1'>
+                                    🍕Home
+                                </Button>
+                            </NavLink>
                             {tokenState == true
                                 ?
-                                    <>
-                                        <CustomButton
-                                            text='🔓Profile'
-                                            route='/desafio-pizzeria-mamma-mia/profile'
-                                        />
-                                        <CustomButton
-                                            text='🔒Logout'
-                                            route={null}/* '/desafio-pizzeria-mamma-mia/login' 
-                                            setToken={setToken}*/
-                                        />
-                                    </>
+                                <>
+                                    <NavLink
+                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                        to='/desafio-pizzeria-mamma-mia/profile'
+                                    >
+                                        <Button className='btn-dark btn-outline-light mx-1'>
+                                            🔓Profile
+                                        </Button>
+                                    </NavLink>
+                                    <Button className='btn-dark btn-outline-light mx-1'>
+                                        <NavLink
+                                            className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                            to='/desafio-pizzeria-mamma-mia/login'
+                                        >🔒Logout</NavLink>
+                                    </Button>
+                                </>
                                 :
-                                    <>
-                                        <CustomButton
-                                            text='🔐Login'
-                                            route='/desafio-pizzeria-mamma-mia/login'
-                                        />
-                                        <CustomButton
-                                            text='🔐Register'
-                                            route='/desafio-pizzeria-mamma-mia/register'
-                                        />
-                                    </>
+                                <>
+                                    <NavLink
+                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                        to='/desafio-pizzeria-mamma-mia/login'
+                                    >
+                                        <Button className='btn-dark btn-outline-light mx-1'>
+                                            🔐Login
+                                        </Button>
+                                    </NavLink>
+                                    <NavLink
+                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                        to='/desafio-pizzeria-mamma-mia/register'
+                                    >
+                                        <Button className='btn-dark btn-outline-light mx-1'>
+                                            🔐Register
+                                        </Button>
+                                    </NavLink>
+                                </>
                             }
                         </Nav>
                     </Navbar.Collapse>
-                    <Button
-                        className='btn-dark btn-outline-info'
+                    <NavLink
+                        className={({ isActive }) => (isActive ? 'active' : 'text-info') + ' text-decoration-none'}
+                        to='/desafio-pizzeria-mamma-mia/cart'
                     >
-                        <Link
-                            className='text-decoration-none text-info d-flex align-items-center gap-2'
-                            to='/desafio-pizzeria-mamma-mia/cart'
-                        >🛒Total: ${total.toLocaleString('es-CL')}
-                        {cuenta > 0 && <span className='badge bg-info rounded-pill'>{cuenta}</span>}
-                        </Link>
-                    </Button>
+                        <Button
+                            className='btn-dark btn-outline-info'
+                        >
+                            🛒Total: ${total.toLocaleString('es-CL')}
+                            {cuenta > 0 && <span className='badge bg-info rounded-pill'>{cuenta}</span>}
+                        </Button>
+                    </NavLink>
                 </Container>
             </Container>
         </Navbar>

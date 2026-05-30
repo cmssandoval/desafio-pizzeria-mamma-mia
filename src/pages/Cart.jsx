@@ -7,7 +7,7 @@ const Cart = () => {
 
     return (
         <>
-            <div className='p-4 px-5 mt-3 mx-2'>
+            <div className='p-4 px-5 mt-4 mx-2'>
                 <h4>Detalles del pedido</h4>
                 {items.length > 0 ? (
                     <>
@@ -58,7 +58,7 @@ const Cart = () => {
                             className='btn btn-primary my-2'
                         >
                             <Link
-                                to='/desafio-pizzeria-mamma-mia'
+                                to='/desafio-pizzeria-mamma-mia/'
                                 className='text-decoration-none text-white'
                             >Ver Pizzas🍕</Link>
                         </button>

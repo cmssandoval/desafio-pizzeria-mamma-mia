@@ -13,7 +13,7 @@ const NotFound = () => {
       <Button className='btn-primary my-4 mx-5'>
         <Link
           className='text-white fw-bold text-decoration-none'
-          to='/desafio-pizzeria-mamma-mia'
+          to='/desafio-pizzeria-mamma-mia/'
         >Volver al Home</Link>
       </Button>
     </div>

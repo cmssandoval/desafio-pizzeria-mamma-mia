@@ -40,15 +40,15 @@ function App() {
               element={<LoginForm tokenSetter={setToken} />}
             />
             <Route
-              path='/desafio-pizzeria-mamma-mia/cart'
+              path='desafio-pizzeria-mamma-mia/cart'
               element={<Cart />}
             />
             <Route
-              path='/desafio-pizzeria-mamma-mia/pizza/:id'
+              path='desafio-pizzeria-mamma-mia/pizza/:id'
               element={<Pizza />}
             />
             <Route
-              path='/desafio-pizzeria-mamma-mia/profile'
+              path='desafio-pizzeria-mamma-mia/profile'
               element={<Profile tokenSetter={setToken} />}
             />
             <Route
