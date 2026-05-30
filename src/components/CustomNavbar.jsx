@@ -90,7 +90,7 @@ function CustomNavbar({ tokenState }) {
                         <Button
                             className='btn-dark btn-outline-info'
                         >
-                            🛒Total: ${total.toLocaleString('es-CL')}
+                            🛒Total: ${total.toLocaleString('es-CL') + ' '}
                             {cuenta > 0 && <span className='badge bg-info rounded-pill'>{cuenta}</span>}
                         </Button>
                     </NavLink>
