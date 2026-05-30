@@ -10,7 +10,7 @@ const NotFound = () => {
       <p>Lo sentimos, la página que buscas no existe o no está disponible
         <br />
       </p>
-      <Button className='btn-primary my-4 mx-5'>
+      <Button className='btn-dark my-4 mx-5'>
         <Link
           className='text-white fw-bold text-decoration-none'
           to='/desafio-pizzeria-mamma-mia/'

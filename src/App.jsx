@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -15,49 +15,48 @@ import Pizza from './pages/Pizza';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
-import DataProvider from './context/DataContext';
-import CartProvider from './context/CartContext';
+import { useUser } from './context/UserContext';
 
 function App() {
-  const [token, setToken] = useState(false);
+  const { token } = useUser();
 
   return (
     <div className='d-flex flex-column min-vh-100 pt-5'>
-      <DataProvider>
-        <CartProvider>
-          <CustomNavbar tokenState={token} />
-          <Routes>
-            <Route
-              path='desafio-pizzeria-mamma-mia/'
-              element={<Home />}
-            />
-            <Route
-              path='desafio-pizzeria-mamma-mia/register'
-              element={<RegisterForm tokenSetter={setToken} />}
-            />
-            <Route
-              path='desafio-pizzeria-mamma-mia/login'
-              element={<LoginForm tokenSetter={setToken} />}
-            />
-            <Route
-              path='desafio-pizzeria-mamma-mia/cart'
-              element={<Cart />}
-            />
-            <Route
-              path='desafio-pizzeria-mamma-mia/pizza/:id'
-              element={<Pizza />}
-            />
-            <Route
-              path='desafio-pizzeria-mamma-mia/profile'
-              element={<Profile tokenSetter={setToken} />}
-            />
-            <Route
-              path='*'
-              element={<NotFound />}
-            />
-          </Routes>
-        </CartProvider>
-      </DataProvider>
+      <CustomNavbar />
+      <Routes>
+        <Route
+          path='desafio-pizzeria-mamma-mia/'
+          element={<Home />}
+        />
+        <Route
+          path='desafio-pizzeria-mamma-mia/register'
+          element={!token ? <RegisterForm /> : <Navigate to='/desafio-pizzeria-mamma-mia' />}
+        />
+        <Route
+          path='desafio-pizzeria-mamma-mia/login'
+          element={!token ? <LoginForm /> : <Navigate to='/desafio-pizzeria-mamma-mia' />}
+        />
+        <Route
+          path='desafio-pizzeria-mamma-mia/cart'
+          element={<Cart />}
+        />
+        {/* La funcionalidad de "ver más" en cada pizza
+        fue implementada en un commit pasado. Pero de todas
+        maneras utiliza useParams para acceder a cada pizza
+        según su id */}
+        <Route
+          path='desafio-pizzeria-mamma-mia/pizza/:id'
+          element={<Pizza />}
+        />
+        <Route
+          path='desafio-pizzeria-mamma-mia/profile'
+          element={token ? <Profile /> : <Navigate to='/desafio-pizzeria-mamma-mia/login' />}
+        />
+        <Route
+          path='*'
+          element={<NotFound />}
+        />
+      </Routes>
       <Footer />
     </div>
   )

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function LoginForm({ tokenSetter }) {
+import { useUser } from '../context/UserContext';
+
+export default function LoginForm() {
+    const { handleLogin } = useUser();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -31,7 +35,7 @@ export default function LoginForm({ tokenSetter }) {
         setPasswordLengthError(false);
 
         setSubmitSuccess(true);
-        tokenSetter(true);
+        handleLogin();
     };
 
     return (
@@ -65,10 +69,10 @@ export default function LoginForm({ tokenSetter }) {
                     {passwordLengthError ? <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p> : null}
                     {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Ha inciado sesión exitosamente</p> : null}
                     <button
-                        className='btn btn-primary'
+                        className='btn btn-dark'
                         type='submit'
                     >Iniciar sesión</button>
-                    <p className='mt-3'>¿Aún no tienes una cuenta? <Link to='/desafio-pizzeria-mamma-mia/register'>Regístrate</Link></p>
+                    <p className='mt-3'>¿Aún no tienes una cuenta?<br /><Link className='text-info fw-bold' to='/desafio-pizzeria-mamma-mia/register'>Regístrate</Link></p>
                 </div>
             </div>
         </form>

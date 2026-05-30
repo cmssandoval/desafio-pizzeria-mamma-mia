@@ -7,8 +7,10 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 import { useCart } from '../context/CartContext';
+import { useUser } from '../context/UserContext';
 
-function CustomNavbar({ tokenState }) {
+function CustomNavbar() {
+    const { token, handleLogout } = useUser();
     const { cuenta, total } = useCart();
 
     return (
@@ -43,7 +45,7 @@ function CustomNavbar({ tokenState }) {
                                     🍕Home
                                 </Button>
                             </NavLink>
-                            {tokenState == true
+                            {token == true
                                 ?
                                 <>
                                     <NavLink
@@ -54,11 +56,11 @@ function CustomNavbar({ tokenState }) {
                                             🔓Profile
                                         </Button>
                                     </NavLink>
-                                    <Button className='btn-dark btn-outline-light mx-1'>
-                                        <NavLink
-                                            className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
-                                            to='/desafio-pizzeria-mamma-mia/login'
-                                        >🔒Logout</NavLink>
+                                    <Button
+                                        className='btn-dark btn-outline-light mx-1'
+                                        onClick={handleLogout}
+                                    >
+                                        🔒Logout
                                     </Button>
                                 </>
                                 :

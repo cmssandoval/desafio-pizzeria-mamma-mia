@@ -2,7 +2,11 @@ import React from 'react';
 import Card from 'react-bootstrap/Card'
 import { Link } from 'react-router-dom';
 
-const Profile = ({ tokenSetter }) => {
+import { useUser } from '../context/UserContext';
+
+const Profile = () => {
+  const { token, handleLogout } = useUser();  
+
   return (
     <div className='container d-flex justify-content-center py-3 m-auto'>
       <Card className='p-2' style={{ width: '18rem' }}>
@@ -21,7 +25,7 @@ const Profile = ({ tokenSetter }) => {
           />
           <div className='text-center'>
             <button
-              onClick={() => tokenSetter(false)}
+              onClick={handleLogout}
               className='btn btn-danger'
             >
               <Link

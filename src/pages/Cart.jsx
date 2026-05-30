@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import Button from 'react-bootstrap/Button';
+
 import { useCart } from '../context/CartContext';
+import { useUser } from '../context/UserContext';
 
 const Cart = () => {
     const { items, updateCantidad, clearCart, total } = useCart();
+    const { token } = useUser();
 
     return (
         <>
@@ -48,20 +53,22 @@ const Cart = () => {
                                     >🗑️</button>
                                 </div>
                             </div>
-                            <button className='btn btn-dark px-3 py-1 my-2'>Pagar</button>
+                            <button
+                                className={`btn btn-dark px-3 py-1 my-2 ${!token ? 'disabled' : ''}`}
+                            >Pagar</button>
                         </div>
                     </>
                 ) : (
                     <div className='text-center py-5'>
                         <h5 className='my-4'>Tu carrito está vacío</h5>
-                        <button
-                            className='btn btn-primary my-2'
+                        <Link
+                            to='/desafio-pizzeria-mamma-mia/'
+                            className='text-decoration-none text-white'
                         >
-                            <Link
-                                to='/desafio-pizzeria-mamma-mia/'
-                                className='text-decoration-none text-white'
-                            >Ver Pizzas🍕</Link>
-                        </button>
+                            <Button className='btn-dark my-2'>
+                                Ver Pizzas🍕
+                            </Button>
+                        </Link>
                     </div>
                 )}
             </div>

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function RegisterForm({ tokenSetter }) {
+import { useUser } from '../context/UserContext';
+
+export default function RegisterForm() {
+    const { handleLogin } = useUser();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -42,7 +46,7 @@ export default function RegisterForm({ tokenSetter }) {
         setPasswordConfirmationError(false);
 
         setSubmitSuccess(true);
-        tokenSetter(true);
+        handleLogin();
     }
 
     return (
@@ -88,10 +92,10 @@ export default function RegisterForm({ tokenSetter }) {
                     {passwordConfirmationError ? <p className='bg-danger text-white rounded-2 p-2'>Las contraseñas deben ser iguales</p> : null}
                     {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Se ha registrado exitosamente</p> : null}
                     <button
-                        className='btn btn-primary'
+                        className='btn btn-dark'
                         type='submit'
                     >Registrarse</button>
-                    <p className='mt-3'>¿Ya tienes una cuenta? <Link to='/desafio-pizzeria-mamma-mia/login'>Inicia Sesión</Link></p>
+                    <p className='mt-3'>¿Ya tienes una cuenta?<br /><Link className='text-info fw-bold' to='/desafio-pizzeria-mamma-mia/login'>Inicia Sesión</Link></p>
                 </div>
             </div>
 
