@@ -15,8 +15,8 @@ import Pizza from './pages/Pizza';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
-import DataProvider from './context/DataProvider';
-import CartProvider from './context/CartProvider';
+import DataProvider from './context/DataContext';
+import CartProvider from './context/CartContext';
 
 function App() {
   const [token, setToken] = useState(false);

@@ -2,7 +2,7 @@ import CardPizza from '../components/CardPizza';
 import Row from 'react-bootstrap/Row';
 
 import { useParams } from 'react-router-dom';
-import { useData } from '../context/DataProvider';
+import { useData } from '../context/DataContext';
 
 const Pizza = () => {
     const { getPizzaById, loading } = useData();

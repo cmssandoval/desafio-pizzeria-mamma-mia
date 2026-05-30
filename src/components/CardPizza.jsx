@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import { useCart } from '../context/CartProvider';
+import { useCart } from '../context/CartContext';
 
 function CardPizza(props) {
     const { addItem } = useCart();

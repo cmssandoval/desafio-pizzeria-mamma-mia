@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import { useCart } from '../context/CartProvider';
+import { useCart } from '../context/CartContext';
 
 function CustomNavbar({ tokenState }) {
     const { cuenta, total } = useCart();

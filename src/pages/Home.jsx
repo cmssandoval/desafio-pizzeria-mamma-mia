@@ -1,7 +1,7 @@
 import Row from 'react-bootstrap/Row';
 import Header from "../components/Header";
 import CardPizza from "../components/CardPizza";
-import { useData } from '../context/DataProvider';
+import { useData } from '../context/DataContext';
 
 function Home() {
     const { pizzas, loading, error } = useData();
