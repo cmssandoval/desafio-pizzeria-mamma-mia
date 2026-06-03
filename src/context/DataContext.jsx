@@ -11,7 +11,7 @@ const DataProvider = ({ children }) => {
     useEffect(() => {
         const fetchPizzas = async () => {
             try {
-                const apiURL = 'http://localhost:5000/api/pizzas';
+                const apiURL = 'https://backend-pizzeria-mamma-mia.onrender.com/api/pizzas';
                 const response = await fetch(apiURL);
                 if (!response.ok) throw new Error('Error al obtener las pizzas');
                 const data = await response.json();
