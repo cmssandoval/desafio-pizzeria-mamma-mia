@@ -19,9 +19,14 @@ const Cart = () => {
                         <div className='d-flex flex-column gap-3 py-3'>
                             {items.map((pizza) => (
                                 <div key={pizza.id} className='d-flex justify-content-between'>
-                                    <div className='d-flex align-items-center gap-1'>
-                                        <img className='px-0' src={pizza.img} alt='Imagen Pizza' />
-                                        <p className='m-0 fw-bold'>{pizza.name.charAt(0).toUpperCase() + pizza.name.slice(1)}</p>
+                                    <div className='d-flex align-items-center'>
+                                        <img
+                                            className='px-0 h-75 rounded'
+                                            style={{ width: "4rem", aspectRatio: "1/1", objectFit: "cover"}}
+                                            src={pizza.img}
+                                            alt='Imagen Pizza'
+                                        />
+                                        <p className='m-0 ms-4 fw-bold'>Pizza {pizza.name.charAt(0).toUpperCase() + pizza.name.slice(1)}</p>
                                     </div>
                                     <div className='d-flex align-items-center justify-content-center gap-3'>
                                         <p className='m-0 fw-bold'>${pizza.price.toLocaleString('es-CL')}</p>
