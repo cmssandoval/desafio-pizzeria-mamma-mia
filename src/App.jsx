@@ -18,7 +18,7 @@ import NotFound from './pages/NotFound';
 import { useUser } from './context/UserContext';
 
 function App() {
-  const { token } = useUser();
+  const { userData } = useUser();
 
   return (
     <div className='d-flex flex-column min-vh-100 pt-5'>
@@ -30,11 +30,11 @@ function App() {
         />
         <Route
           path='desafio-pizzeria-mamma-mia/register'
-          element={!token ? <RegisterForm /> : <Navigate to='/desafio-pizzeria-mamma-mia' />}
+          element={!userData ? <RegisterForm /> : <Navigate to='/desafio-pizzeria-mamma-mia' />}
         />
         <Route
           path='desafio-pizzeria-mamma-mia/login'
-          element={!token ? <LoginForm /> : <Navigate to='/desafio-pizzeria-mamma-mia' />}
+          element={!userData ? <LoginForm /> : <Navigate to='/desafio-pizzeria-mamma-mia' />}
         />
         <Route
           path='desafio-pizzeria-mamma-mia/cart'
@@ -50,7 +50,7 @@ function App() {
         />
         <Route
           path='desafio-pizzeria-mamma-mia/profile'
-          element={token ? <Profile /> : <Navigate to='/desafio-pizzeria-mamma-mia/login' />}
+          element={userData ? <Profile /> : <Navigate to='/desafio-pizzeria-mamma-mia/login' />}
         />
         <Route
           path='*'

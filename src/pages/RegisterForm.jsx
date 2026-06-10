@@ -1,53 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useUser } from '../context/UserContext';
 
 export default function RegisterForm() {
-    const { handleLogin } = useUser();
+    const { errorState, setUserData, handleRegister } = useUser();
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-    const [submitSuccess, setSubmitSuccess] = useState(false);
-
-    const [emptyError, setEmptyError] = useState(false);
-    const [passwordLengthError, setPasswordLengthError] = useState(false);
-    const [passwordConfirmationError, setPasswordConfirmationError] = useState(false);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitSuccess(false);
-
-        if (!email.trim() || !password.trim() || !passwordConfirmation.trim()) {
-            setEmptyError(true);
-            setPasswordLengthError(false);
-            setPasswordConfirmationError(false);
-            return;
-        } else if (password.length < 6) {
-            setEmptyError(false);
-            setPasswordLengthError(true);
-            setPasswordConfirmationError(false);
-            return;
-        } else if (password !== passwordConfirmation) {
-            setEmptyError(false);
-            setPasswordLengthError(false);
-            setPasswordConfirmationError(true);
-            return;
+        const success = await handleRegister({ email, password, passwordConfirmation });
+        if (success) {
+            setShowSuccess(true);
+            setTimeout(() => {
+                setUserData(success)
+                navigate('/desafio-pizzeria-mamma-mia/');
+            }, 1000);
         }
-
-        setEmail('');
-        setPassword('');
-        setPasswordConfirmation('');
-
-        setEmptyError(false);
-        setPasswordLengthError(false);
-        setPasswordConfirmationError(false);
-
-        setSubmitSuccess(true);
-        handleLogin();
-    }
+    };
 
     return (
         <form className='container text-center my-4 py-4' onSubmit={(e) => { handleSubmit(e) }}>
@@ -87,10 +63,11 @@ export default function RegisterForm() {
                     />
                 </div>
                 <div className='form-group col-9 col-sm-8 col-md-6 py-3 px-5'>
-                    {emptyError ? <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p> : null}
-                    {passwordLengthError ? <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p> : null}
-                    {passwordConfirmationError ? <p className='bg-danger text-white rounded-2 p-2'>Las contraseñas deben ser iguales</p> : null}
-                    {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Se ha registrado exitosamente</p> : null}
+                    {errorState.emptyError && <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p>}
+                    {errorState.passwordLengthError && <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p>}
+                    {errorState.passwordConfirmationError && <p className='bg-danger text-white rounded-2 p-2'>Las contraseñas deben ser iguales</p>}
+                    {errorState.serverError && <p className='bg-danger text-white rounded-2 p-2'>Error del servidor:<br />{errorState.serverError}</p>}
+                    {showSuccess && <p className='bg-success text-white rounded-2 p-2'>Se ha registrado exitosamente</p>}
                     <button
                         className='btn btn-dark'
                         type='submit'

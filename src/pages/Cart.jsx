@@ -8,7 +8,7 @@ import { useUser } from '../context/UserContext';
 
 const Cart = () => {
     const { items, updateCantidad, clearCart, total } = useCart();
-    const { token } = useUser();
+    const { userData } = useUser();    
 
     return (
         <>
@@ -59,7 +59,7 @@ const Cart = () => {
                                 </div>
                             </div>
                             <button
-                                className={`btn btn-dark px-3 py-1 my-2 ${!token ? 'disabled' : ''}`}
+                                className={`btn btn-dark px-3 py-1 my-2 ${!userData ? 'disabled' : ''}`}
                             >Pagar</button>
                         </div>
                     </>

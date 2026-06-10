@@ -1,41 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useUser } from '../context/UserContext';
 
 export default function LoginForm() {
-    const { handleLogin } = useUser();
+    const { errorState, setUserData, handleLogin } = useUser();
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [submitSuccess, setSubmitSuccess] = useState(false);
-
-    const [emptyError, setEmptyError] = useState(false);
-    const [passwordLengthError, setPasswordLengthError] = useState(false);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitSuccess(false);
-
-        if (!email.trim() || !password.trim()) {
-            setEmptyError(true);
-            setPasswordLengthError(false);
-            return;
-        } else if (password.length < 6) {
-            setPasswordLengthError(true);
-            setEmptyError(false);
-            return;
+        const success = await handleLogin({ email, password });
+        if (success) {
+            setShowSuccess(true);
+            setTimeout(() => {
+                setUserData(success)
+                navigate('/desafio-pizzeria-mamma-mia/');
+            }, 1000);
         }
-
-        setEmail('');
-        setPassword('');
-
-        setEmptyError(false);
-        setPasswordLengthError(false);
-
-        setSubmitSuccess(true);
-        handleLogin();
     };
 
     return (
@@ -65,9 +51,9 @@ export default function LoginForm() {
                     />
                 </div>
                 <div className='form-group col-9 col-sm-8 col-md-6 py-3 px-5'>
-                    {emptyError ? <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p> : null}
-                    {passwordLengthError ? <p className='bg-danger text-white rounded-2 p-2'>La contraseña debe tener como mínimo 6 caracteres</p> : null}
-                    {submitSuccess ? <p className='bg-success text-white rounded-2 p-2'>Ha inciado sesión exitosamente</p> : null}
+                    {errorState.emptyError && <p className='bg-danger text-white rounded-2 p-2'>Debe llenar todos los campos</p>}
+                    {errorState.serverError && <p className='bg-danger text-white rounded-2 p-2'>Error del servidor:<br />{errorState.serverError}</p>}
+                    {showSuccess && <p className='bg-success text-white rounded-2 p-2'>Ha inciado sesión exitosamente</p>}
                     <button
                         className='btn btn-dark'
                         type='submit'

@@ -10,7 +10,7 @@ import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext';
 
 function CustomNavbar() {
-    const { token, handleLogout } = useUser();
+    const { userData, handleLogout } = useUser();
     const { cuenta, total } = useCart();
 
     return (
@@ -45,7 +45,7 @@ function CustomNavbar() {
                                     🍕Home
                                 </Button>
                             </NavLink>
-                            {token == true
+                            {!!userData
                                 ?
                                 <>
                                     <NavLink
