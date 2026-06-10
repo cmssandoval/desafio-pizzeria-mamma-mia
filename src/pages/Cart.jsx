@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
@@ -7,8 +7,15 @@ import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext';
 
 const Cart = () => {
-    const { items, updateCantidad, clearCart, total } = useCart();
-    const { userData } = useUser();    
+    const { cartStatus, setCartStatus, items, updateCantidad, clearCart, handleCart, total } = useCart();
+    const { userData } = useUser();
+
+    useEffect(() => {
+        setCartStatus({
+            cartError: null,
+            cartSuccess: null,
+        })
+    }, [])
 
     return (
         <>
@@ -22,7 +29,7 @@ const Cart = () => {
                                     <div className='d-flex align-items-center'>
                                         <img
                                             className='px-0 h-75 rounded'
-                                            style={{ width: "4rem", aspectRatio: "1/1", objectFit: "cover"}}
+                                            style={{ width: "4rem", aspectRatio: "1/1", objectFit: "cover" }}
                                             src={pizza.img}
                                             alt='Imagen Pizza'
                                         />
@@ -60,6 +67,7 @@ const Cart = () => {
                             </div>
                             <button
                                 className={`btn btn-dark px-3 py-1 my-2 ${!userData ? 'disabled' : ''}`}
+                                onClick={handleCart}
                             >Pagar</button>
                         </div>
                     </>
@@ -74,6 +82,16 @@ const Cart = () => {
                                 Ver Pizzas🍕
                             </Button>
                         </Link>
+                    </div>
+                )}
+                {cartStatus.cartSuccess && (
+                    <div className='text-center p-5 container'>
+                        <p className='bg-success text-white rounded-2 p-2 mx-5'>{cartStatus.cartSuccess} <br />Volviendo al inicio...</p>
+                    </div>
+                )}
+                {cartStatus.cartError && (
+                    <div className='text-center p-5 container'>
+                        <p className='bg-danger text-white rounded-2 p-2 mx-5'>Error: {cartStatus.cartError}</p>
                     </div>
                 )}
             </div>
