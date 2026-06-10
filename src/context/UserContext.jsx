@@ -77,7 +77,7 @@ const UserProvider = ({ children }) => {
             body: jsonUserData,
         });
 
-        let data = await response.json();        
+        let data = await response.json();
         if (data.error) {
             setErrorState(prev => ({ ...prev, serverError: data.error }));
         } else {
@@ -94,8 +94,19 @@ const UserProvider = ({ children }) => {
                 Authorization: `Bearer ${token}`
             },
         })
-            .then((response) => response.json())
-            .then((data) => setUserData(data));
+            .then((response) => {
+                if (response.status === 401) {
+                    localStorage.removeItem("user");
+                    setUserData(null)
+                    throw new Error("Usuario no autorizado");
+                }
+                if (!response.ok) {
+                    setErrorState(prev => ({ ...prev, serverError: response.status }));
+                    throw new Error(`Error del servidor: ${response.status}`);
+                }
+                return response.json()
+            })
+            .then((data) => setUserData((prev) => ({ ...prev, ...data })));
     }
 
     const handleLogout = () => {
