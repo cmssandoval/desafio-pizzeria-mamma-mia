@@ -19,24 +19,24 @@ const Cart = () => {
 
     return (
         <>
-            <div className='p-4 px-5 mt-4 mx-2'>
+            <div className='p-3 p-md-4 px-3 px-md-5 mt-4 mx-1 mx-md-2'>
                 <h4>Detalles del pedido</h4>
                 {items.length > 0 ? (
                     <>
                         <div className='d-flex flex-column gap-3 py-3'>
                             {items.map((pizza) => (
-                                <div key={pizza.id} className='d-flex justify-content-between'>
-                                    <div className='d-flex align-items-center'>
+                                <div key={pizza.id} className='d-flex flex-wrap justify-content-between align-items-center gap-2'>
+                                    <div className='d-flex align-items-center flex-grow-1'>
                                         <img
-                                            className='px-0 h-75 rounded'
+                                            className='px-0 flex-shrink-0 rounded'
                                             style={{ width: "4rem", aspectRatio: "1/1", objectFit: "cover" }}
                                             src={pizza.img}
                                             alt='Imagen Pizza'
                                         />
-                                        <p className='m-0 ms-4 fw-bold'>Pizza {pizza.name.charAt(0).toUpperCase() + pizza.name.slice(1)}</p>
+                                        <p className='m-0 ms-3 fw-bold'>Pizza {pizza.name.charAt(0).toUpperCase() + pizza.name.slice(1)}</p>
                                     </div>
-                                    <div className='d-flex align-items-center justify-content-center gap-3'>
-                                        <p className='m-0 fw-bold'>${pizza.price.toLocaleString('es-CL')}</p>
+                                    <div className='d-flex align-items-center justify-content-between gap-2 gap-md-3'>
+                                        <p className='m-0 fw-bold text-nowrap'>${pizza.price.toLocaleString('es-CL')}</p>
                                         <div className='d-flex gap-2'>
                                             <button
                                                 className='btn btn-outline-danger'
@@ -53,8 +53,8 @@ const Cart = () => {
                             ))}
                         </div>
                         <div>
-                            <div className='d-flex justify-content-between'>
-                                <h2 className='my-2'>
+                            <div className='d-flex flex-wrap justify-content-between align-items-center'>
+                                <h2 className='my-2 fs-3'>
                                     Total: $
                                     {total.toLocaleString('es-CL')}
                                 </h2>
