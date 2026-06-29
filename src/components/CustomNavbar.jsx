@@ -35,13 +35,13 @@ function CustomNavbar() {
                 <Container fluid className='d-flex justify-content-end px-0'>
 
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="py-auto ms-0 align-items-center">
+                        <Nav className="me-auto my-auto d-flex flex-column flex-sm-row align-items-center gap-1">
                             <NavLink
-                                className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none my-auto me-1'}
                                 to='desafio-pizzeria-mamma-mia/'
                                 end
                             >
-                                <Button className='btn-dark btn-outline-light mx-1'>
+                                <Button className='btn-dark btn-outline-light custom-btn-nav'>
                                     🍕Home
                                 </Button>
                             </NavLink>
@@ -49,15 +49,15 @@ function CustomNavbar() {
                                 ?
                                 <>
                                     <NavLink
-                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none my-auto me-1'}
                                         to='/desafio-pizzeria-mamma-mia/profile'
                                     >
-                                        <Button className='btn-dark btn-outline-light mx-1'>
+                                        <Button className='btn-dark btn-outline-light custom-btn-nav'>
                                             🔓Profile
                                         </Button>
                                     </NavLink>
                                     <Button
-                                        className='btn-dark btn-outline-light mx-1'
+                                        className='btn-dark btn-outline-light custom-btn-nav'
                                         onClick={handleLogout}
                                     >
                                         🔒Logout
@@ -66,36 +66,36 @@ function CustomNavbar() {
                                 :
                                 <>
                                     <NavLink
-                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none my-auto me-1'}
                                         to='/desafio-pizzeria-mamma-mia/login'
                                     >
-                                        <Button className='btn-dark btn-outline-light mx-1'>
+                                        <Button className='btn-dark btn-outline-light custom-btn-nav'>
                                             🔐Login
                                         </Button>
                                     </NavLink>
                                     <NavLink
-                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none'}
+                                        className={({ isActive }) => (isActive ? 'active' : 'text-white') + ' text-decoration-none my-auto me-1'}
                                         to='/desafio-pizzeria-mamma-mia/register'
                                     >
-                                        <Button className='btn-dark btn-outline-light mx-1'>
+                                        <Button className='btn-dark btn-outline-light custom-btn-nav'>
                                             🔐Register
                                         </Button>
                                     </NavLink>
                                 </>
                             }
+                            <NavLink
+                                className={({ isActive }) => (isActive ? 'active' : 'text-info') + ' text-decoration-none my-auto me-1'}
+                                to='/desafio-pizzeria-mamma-mia/cart'
+                            >
+                                <Button
+                                    className='btn-dark btn-outline-info custom-btn-nav'
+                                >
+                                    🛒Total: ${total.toLocaleString('es-CL') + ' '}
+                                    {cuenta > 0 && <span className='badge bg-info rounded-pill'>{cuenta}</span>}
+                                </Button>
+                            </NavLink>
                         </Nav>
                     </Navbar.Collapse>
-                    <NavLink
-                        className={({ isActive }) => (isActive ? 'active' : 'text-info') + ' text-decoration-none'}
-                        to='/desafio-pizzeria-mamma-mia/cart'
-                    >
-                        <Button
-                            className='btn-dark btn-outline-info'
-                        >
-                            🛒Total: ${total.toLocaleString('es-CL') + ' '}
-                            {cuenta > 0 && <span className='badge bg-info rounded-pill'>{cuenta}</span>}
-                        </Button>
-                    </NavLink>
                 </Container>
             </Container>
         </Navbar>
