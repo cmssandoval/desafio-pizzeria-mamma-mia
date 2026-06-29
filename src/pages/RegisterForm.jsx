@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
 export default function RegisterForm() {
-    const { errorState, setUserData, handleRegister } = useUser();
+    const { setErrorState, errorState, setUserData, handleRegister } = useUser();
     const [showSuccess, setShowSuccess] = useState(false);
 
     const navigate = useNavigate();
@@ -24,6 +24,15 @@ export default function RegisterForm() {
             }, 1000);
         }
     };
+
+    useEffect(() => {
+        setErrorState({
+            emptyError: false,
+            passwordLengthError: false,
+            passwordConfirmationError: false,
+            serverError: null,
+        });
+    }, [])
 
     return (
         <form className='container text-center my-4 py-4' onSubmit={(e) => { handleSubmit(e) }}>

@@ -4,13 +4,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
 export default function LoginForm() {
-    const { errorState, setUserData, handleLogin } = useUser();
+    const { setErrorState, errorState, setUserData, handleLogin } = useUser();
     const [showSuccess, setShowSuccess] = useState(false);
 
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        setErrorState({
+            emptyError: false,
+            passwordLengthError: false,
+            passwordConfirmationError: false,
+            serverError: null,
+        });
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
